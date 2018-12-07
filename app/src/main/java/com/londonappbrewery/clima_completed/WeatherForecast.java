@@ -9,9 +9,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import java.util.ArrayList;
+import android.support.constraint.ConstraintLayout;
 
-
-import cz.msebera.android.httpclient.Header;
 
 public class WeatherForecast extends AppCompatActivity {
     // TextView to be update
@@ -25,8 +24,9 @@ public class WeatherForecast extends AppCompatActivity {
     TextView textView8;
     TextView textView9;
     TextView textView10;
-
+    ConstraintLayout forecastLayout;
     ForecastModel data;
+    String tempType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +44,7 @@ public class WeatherForecast extends AppCompatActivity {
                 // Go back and destroy the ChangeCityController
         });
 
-        TextView maintitle = findViewById(R.id.MainTitle);
-        maintitle.setText(String.format("%12s%-8s%17s%12s","","Date","Condition","°C"));
+
 
         textView1 = findViewById(R.id.textView1);
         textView2 = findViewById(R.id.textView2);
@@ -58,10 +57,28 @@ public class WeatherForecast extends AppCompatActivity {
         textView9 = findViewById(R.id.textView9);
         textView10 = findViewById(R.id.textView10);
 
+        forecastLayout = findViewById(R.id.weatherForecastLayout);
+        TextView maintitle = findViewById(R.id.MainTitle);
+
         Intent intent = getIntent();
         data = (ForecastModel)intent.getSerializableExtra(WeatherController.Forecast);
         String city = intent.getStringExtra("city");
+        tempType = intent.getStringExtra("tempType");
+        String background = intent.getStringExtra("background");
+
+        if(tempType.equals("Centigrade"))
+            maintitle.setText(String.format("%12s%-8s%17s%12s","","Date","Condition","°C"));
+        else
+            maintitle.setText(String.format("%12s%-8s%17s%12s","","Date","Condition","°F"));
+
+        if (background.equals("T"))
+            forecastLayout.setBackgroundResource((R.drawable.birdsbackground));
+
+        // Data back to Main Page
         intent.putExtra("City", city);
+        intent.putExtra("temp", tempType);
+        intent.putExtra("background", background);
+
 //        textView1.setText("In");
         Log.d("Clima", "Get WeatherForecast ");
 //        ScrollView scoll = findViewById(R.id.scrollView);
@@ -90,9 +107,20 @@ public class WeatherForecast extends AppCompatActivity {
 
 //        Assign the string to be display in the textView
         ArrayList<String> Display = new ArrayList<>(10);
-        for(int i = 0; i<10; i++){
-            Display.add(String.format("%-20s%8s%19s    ",Date.get(i),Condition.get(i),Temp.get(i).toString()));
+        if (tempType.equals("Centigrade")){
+            for(int i = 0; i<10; i++){
+                Display.add(String.format("%-20s%8s%19s    ",Date.get(i),Condition.get(i),Temp.get(i).toString()));
+            }
         }
+        else
+        {
+
+            for(int i = 0; i<10; i++){
+                int Ftemp = Temp.get(i)*9/5+32;
+                Display.add(String.format("%-20s%8s%19s    ",Date.get(i),Condition.get(i),Integer.toString(Ftemp)));
+            }
+        }
+
         Log.d("Clima", "Finish Assign Display array");
 
         textView1.setText(String.format("%s",Display.get(0)));

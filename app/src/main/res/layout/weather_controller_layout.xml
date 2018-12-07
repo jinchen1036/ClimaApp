@@ -10,33 +10,38 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/weather_background"
+    android:id="@+id/weatherControllerLayout"
+
     tools:context="com.londonappbrewery.clima_completed.WeatherController">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/default_location"
-        android:id="@+id/locationTV"
-        android:textColor="@color/white"
-        android:textSize="40sp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="70dp"/>
+
 
     <TextView
+        android:id="@+id/locationTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textSize="90sp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="22dp"
+        android:text="@string/default_location"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/default_temp"
+        android:textColor="@color/black"
+        android:textSize="50sp" />
+
+    <TextView
         android:id="@+id/tempTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/changeCityButton"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_marginTop="16dp"
+        android:text="@string/default_temp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/black"
+        android:textSize="90sp" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -52,20 +57,19 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:layout_alignParentStart="false"
         android:layout_alignParentLeft="false"
-        >
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="104dp">
 
         <ImageView
+            android:id="@+id/weatherSymbolIV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/weatherSymbolIV"
-            android:src="@drawable/dunno"
             android:contentDescription="@string/weather_description"
 
-            />
+            android:src="@drawable/dunno" />
     </FrameLayout>
 
     <ImageButton
@@ -81,5 +85,34 @@
         android:background="@null"
         android:contentDescription="@string/forcast_description"
         app:srcCompat="@drawable/left" />
+
+    <TextView
+        android:id="@+id/humidity_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Pressure_txt"
+        android:layout_marginStart="51dp"
+        android:layout_marginLeft="51dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="-1dp"
+        android:layout_toEndOf="@+id/tempTV"
+        android:layout_toRightOf="@+id/tempTV"
+        android:text="Humidity =  41%"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/Pressure_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="51dp"
+        android:layout_marginLeft="51dp"
+        android:layout_marginBottom="412dp"
+        android:layout_toEndOf="@+id/tempTV"
+        android:layout_toRightOf="@+id/tempTV"
+        android:text="Visibility = 10km"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        android:textColor="@color/black" />
 
 </RelativeLayout>
